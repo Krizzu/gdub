@@ -32,8 +32,7 @@ select_gradle() {
   # Use project's gradlew if found.
   local gradlew=$(lookup "${GRADLEW}" "${dir}")
   if [[ -z "${gradlew}" ]]; then
-    err "No ${GRADLEW} set up for this project; consider setting one up:"
-    err "http://gradle.org/docs/current/userguide/gradle_wrapper.html\n"
+    err "No ${GRADLEW} set up for this project!"
   else
     echo "${gradlew}"
     return 0
@@ -71,8 +70,6 @@ execute_gradle() {
     err "Unable to find a gradle build file named ${GRADLE_BUILDFILE} or ${GRADLE_KTS_BUILDFILE}."
   fi
 
-  # Say what we are gonna do, then do it.
-  err "Using gradle at '${gradle}' to run buildfile '${build_gradle}':\n"
   if [[ -n "build_args[@]" ]]; then
     "${gradle}" "${build_args[@]}"
   else
